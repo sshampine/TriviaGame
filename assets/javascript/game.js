@@ -51,7 +51,7 @@ var triviaQuestions = [{
 	answer: 3
 }];
 
-
+/*
 var q1 = {
 	question: "The theme for Star Trek The Next Generation was taken from which Star Trek feature movie?",
 	answerOptions: ['The Motion Picture', 'The Wrath of Kahn', 'The Search for Spock', 'The Voyage Home'],
@@ -111,7 +111,7 @@ var q10 = {
 	answerOptions: ['Ensine', 'Lutenent', 'Commander', 'Captain'],
 	answer: [false, false, false, true]
 };
-
+*/
 // other variables
 var correctAnswer = 0;
 var incorrectAnswer = 0;
@@ -134,11 +134,16 @@ var userChoice;
 
 $('#startBtn').on('click', function() {
 	$(this).hide(); //hides the Click to Start button after clicking
-	nextQuestion();		//calls the function to start game
+	startGame();		//calls the function to start game
+
 });
 
 
 	//var interval = setInterval(question, 5000);
+
+function startGame() {
+	nextQuestion();
+}
 
 
 function nextQuestion() {
@@ -154,18 +159,42 @@ function nextQuestion() {
 
 	$('.test').on('click',function(){
 		userChoice = $(this).data('answer'); //traverses DOM for answer in data-answer attribute.
-		alert(userChoice);
+		//alert(userChoice);
+		answer();
+
 	})
 
 }
 
 
+function answer() {
+ var answerList = triviaQuestions[currentQuestion].answer
+ console.log('answer list is ' + answerList);
+if (userChoice == answerList)
+{
+	correctAnswer++
+	$('#answer-area').html('you got it ' + correctAnswer);
+	
+}
+else if (userChoice != answerList)
+{
+	incorrectAnswer++;
+	$('#answer-area').html('you missed it ' + incorrectAnswer);
+	
+}
+currentQuestion++;
+setTimeout(nextQuestion, 3000)
+}; 
+
+
+//use setTimeout to invoke nextQuestion function, use clearTimeout function to clear timer, etc...
 /*
 to score. create on click for answers and assign variable and compare if trivaQuestions[currentQuestion].answer == data-answer attribute; correctAnswer++
 else incorrectAnswer++
 else if times up unanswered++
 
 */
+
 
 
 
