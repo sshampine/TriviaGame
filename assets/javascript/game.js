@@ -31,7 +31,7 @@ var triviaQuestions = [{
 	answer: 1
 },
 {
-	quesiton: 'What is the name of the episode where Kirk fought a Gorn?',
+	question: 'What is the name of the episode where Kirk fought a Gorn?',
 	answerOptions: ['Let That Be Your Last Battlefield', 'Mirror, Mirror', 'Arena', 'The Balance of Terror'],
 	answer: 2
 },
@@ -118,6 +118,7 @@ var incorrectAnswer = 0;
 var unanswered = 0;
 var currentQuestion = 0;
 var userChoice;
+var answered = false;
 //var clicked = false;
 //var index = 0;
 //var questionArray = [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10];
@@ -132,8 +133,11 @@ var userChoice;
 	$("#question-area").append(questions);
 } */
 
+$('#replayBtn').hide();
+
 $('#startBtn').on('click', function() {
 	$(this).hide(); //hides the Click to Start button after clicking
+	
 	startGame();		//calls the function to start game
 
 });
@@ -142,6 +146,7 @@ $('#startBtn').on('click', function() {
 	//var interval = setInterval(question, 5000);
 
 function startGame() {
+	
 	nextQuestion();
 }
 
@@ -156,10 +161,11 @@ function nextQuestion() {
  	answerDiv.attr('data-answer', i) //assigns var i as a data attribute for later comparison.
  	$('#answer-area').append(answerDiv);
 	}
-
+	countdown();
 	$('.test').on('click',function(){
 		userChoice = $(this).data('answer'); //traverses DOM for answer in data-answer attribute.
 		//alert(userChoice);
+		clearInterval(interval);
 		answer();
 
 	})
@@ -170,21 +176,43 @@ function nextQuestion() {
 function answer() {
  var answerList = triviaQuestions[currentQuestion].answer
  console.log('answer list is ' + answerList);
-if (userChoice == answerList)
-{
-	correctAnswer++
-	$('#answer-area').html('you got it ' + correctAnswer);
+	if (userChoice == answerList)
+	{
+		correctAnswer++
+		answered = true;
+		$('#answer-area').html('you got it ' + correctAnswer);
 	
-}
-else if (userChoice != answerList)
-{
-	incorrectAnswer++;
-	$('#answer-area').html('you missed it ' + incorrectAnswer);
+	}
+	else if (userChoice != answerList)
+	{
+		incorrectAnswer++;
+		answered = true;
+		$('#answer-area').html('you missed it ' + incorrectAnswer);
 	
-}
-currentQuestion++;
-setTimeout(nextQuestion, 3000)
-}; 
+	}
+
+	else if (answered == false) {
+		unanswered++
+		answered = false;
+		$('#answer-area').html("you forgot to answer");
+	}
+	currentQuestion++;
+	if (currentQuestion >= triviaQuestions.length) 
+	{
+		clearTimeout(nextQuestion);
+		$('#answer-area').html("you did it!!")
+		$('#replayBtn').show();
+		currentQuestion = 0;
+		$('#replayBtn').on('click', function() {
+			$(this).hide(); //hides the Click to Start button after clicking
+	
+			startGame();		//calls the function to start game
+
+		});
+	}
+	else {setTimeout(nextQuestion, 3000)};
+
+	}; 
 
 
 //use setTimeout to invoke nextQuestion function, use clearTimeout function to clear timer, etc...
@@ -195,6 +223,20 @@ else if times up unanswered++
 
 */
 
+function countdown() {
+	time = 30;
+	$('#timer-area').html('<h3>Time Remaining: ' + time + '</h3>');
+	interval = setInterval(showCount, 1000)
+};
+
+function showCount() {
+	time--;
+ 	$('#timer-area').html('<h3> Time Remaining: ' + time + '</h3>');
+ 	if (time < 0) {
+ 		clearInterval(interval);
+ 		answer();
+ 	}
+}
 
 
 
@@ -205,8 +247,7 @@ else if times up unanswered++
 
 
 
-
-
+/*
 function question() {
 $('#question-area').html(questionArray[index].question);
 for (var i = 0; i < 4; i++) {
@@ -216,7 +257,7 @@ for (var i = 0; i < 4; i++) {
  	answerDiv.html(questionArray[index].answerOptions[i])
  	answerDiv.attr('data-answer', questionArray[index].answer[i])
  	$('#answer-area').append(answerDiv);
-}
+} */
 
 
 
@@ -228,7 +269,7 @@ for (var i = 0; i < 4; i++) {
 
 
 
-
+/*
 $('#answerOne').on('click', function() {
 	var ansOne = 
 	console.log("you clicked " + questionArray[0].answerOptions[0])
@@ -264,6 +305,6 @@ function timeout() {
 function gamePlay() {
 	setTimeout(question, 5000)
 	index++
-}
+} */
 
 

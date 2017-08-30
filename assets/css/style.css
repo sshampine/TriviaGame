@@ -6,3 +6,21 @@ h1 {
 	color: #fff;
 	font-size: 36px;
 }
+
+.test {
+	color: white;
+	font-size: 28px;
+	border: 1px solid black;
+}
+#question-area {
+	color: white;
+}
+
+#answer-area {
+	color: white;
+}
+
+.content {
+	max-width: 960px;
+	
+}
