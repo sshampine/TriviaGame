@@ -133,7 +133,7 @@ var answered;
 	$("#question-area").append(questions);
 } */
 
-$('#replayBtn').hide();
+
 
 $('#startBtn').on('click', function() {
 	$(this).hide(); //hides the Click to Start button after clicking
@@ -141,6 +141,12 @@ $('#startBtn').on('click', function() {
 	startGame();		//calls the function to start game
 
 });
+
+$('#replayBtn').on('click', function() {
+	$(this).hide();
+
+	startGame();
+})
 
 
 	//var interval = setInterval(question, 5000);
@@ -152,6 +158,10 @@ function startGame() {
 
 
 function nextQuestion() {
+	$('#answer-area').empty();
+	$('#correct').empty();
+	$('#wrong').empty();
+	$('#not').empty();
 	$('#question-area').html(triviaQuestions[currentQuestion].question)
 	for (var i = 0; i < 4; i++) {
  	var answerDiv = $('<div>');
@@ -179,22 +189,26 @@ function answer() {
 	if (userChoice == answerList && answered == true)
 	{
 		correctAnswer++
-		
-		$('#answer-area').html('you got it ' + correctAnswer);
+		$('#question-area').empty();
+		$('#answer-area').empty();
+		$('#correct').html('you got it ' + correctAnswer);
 	
 	}
 	else if (userChoice != answerList && answered == true)
 	{
 		incorrectAnswer++;
-		
-		$('#answer-area').html('you missed it ' + incorrectAnswer);
+		$('#question-area').empty();
+		$('#answer-area').empty();
+		$('#wrong').html('you missed it ' + incorrectAnswer);
 	
 	}
 
 	else  {
 		unanswered++
 		answered = true;
-		$('#answer-area').html("you forgot to answer");
+		$('#question-area').empty();
+		$('#answer-area').empty();
+		$('#not').html("you forgot to answer");
 	}
 
 	//currentQuestion++;
@@ -247,9 +261,12 @@ function showCount() {
 
 
 function score() {
-	console.log('you got: ' + correctAnswer + ' right');
-	console.log('you got: ' + incorrectAnswer + ' wrong');
-	console.log('you didn\st answer: ' + unanswered);
+	$('#timer-area').empty()
+	$('#correct').html('you got: ' + correctAnswer + ' right');
+	$('#wrong').html('you got: ' + incorrectAnswer + ' wrong');
+	$('#not').html('you didn\st answer: ' + unanswered);
+	$('#replayBtn').show();
+	$('#replayBtn').html('Play Again?')
 }
 
 
