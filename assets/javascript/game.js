@@ -118,7 +118,7 @@ var incorrectAnswer = 0;
 var unanswered = 0;
 var currentQuestion = 0;
 var userChoice;
-var answered = false;
+var answered;
 //var clicked = false;
 //var index = 0;
 //var questionArray = [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10];
@@ -168,7 +168,7 @@ function nextQuestion() {
 		clearInterval(interval);
 		answer();
 
-	})
+	});
 
 }
 
@@ -176,41 +176,46 @@ function nextQuestion() {
 function answer() {
  var answerList = triviaQuestions[currentQuestion].answer
  console.log('answer list is ' + answerList);
-	if (userChoice == answerList)
+	if (userChoice == answerList && answered == true)
 	{
 		correctAnswer++
-		answered = true;
+		
 		$('#answer-area').html('you got it ' + correctAnswer);
 	
 	}
-	else if (userChoice != answerList)
+	else if (userChoice != answerList && answered == true)
 	{
 		incorrectAnswer++;
-		answered = true;
+		
 		$('#answer-area').html('you missed it ' + incorrectAnswer);
 	
 	}
 
-	else if (answered == false) {
+	else  {
 		unanswered++
-		answered = false;
+		answered = true;
 		$('#answer-area').html("you forgot to answer");
 	}
-	currentQuestion++;
-	if (currentQuestion >= triviaQuestions.length) 
-	{
-		clearTimeout(nextQuestion);
-		$('#answer-area').html("you did it!!")
-		$('#replayBtn').show();
-		currentQuestion = 0;
-		$('#replayBtn').on('click', function() {
-			$(this).hide(); //hides the Click to Start button after clicking
-	
-			startGame();		//calls the function to start game
 
-		});
+	//currentQuestion++;
+	if (currentQuestion == triviaQuestions.length-1) 
+	{
+		setTimeout(score, 5000);
+
+		//$('#answer-area').html("you did it!!")
+		//$('#replayBtn').show();
+		//currentQuestion = 0;
+		//$('#replayBtn').on('click', function() {
+		//	$(this).hide(); //hides the Click to Start button after clicking
+	
+		//	startGame();		//calls the function to start game
+
+		//});
 	}
-	else {setTimeout(nextQuestion, 3000)};
+	else {
+		currentQuestion++
+		setTimeout(nextQuestion, 3000)
+	};
 
 	}; 
 
@@ -226,6 +231,7 @@ else if times up unanswered++
 function countdown() {
 	time = 30;
 	$('#timer-area').html('<h3>Time Remaining: ' + time + '</h3>');
+	answered = true;
 	interval = setInterval(showCount, 1000)
 };
 
@@ -234,12 +240,17 @@ function showCount() {
  	$('#timer-area').html('<h3> Time Remaining: ' + time + '</h3>');
  	if (time < 0) {
  		clearInterval(interval);
+ 		answered = false;
  		answer();
  	}
 }
 
 
-
+function score() {
+	console.log('you got: ' + correctAnswer + ' right');
+	console.log('you got: ' + incorrectAnswer + ' wrong');
+	console.log('you didn\st answer: ' + unanswered);
+}
 
 
 

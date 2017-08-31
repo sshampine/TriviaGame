@@ -7,13 +7,29 @@ h1 {
 	font-size: 36px;
 }
 
+#timer-area {
+	color: white;
+}
+
+#startBtn {
+	padding: 15px;
+	font-size: 24px;
+}
+
 .test {
 	color: white;
 	font-size: 28px;
-	border: 1px solid black;
+	
 }
+
+.test:hover {
+	background-color: grey;
+	color: white;
+}
+
 #question-area {
 	color: white;
+	font-size: 28px;
 }
 
 #answer-area {
@@ -21,6 +37,7 @@ h1 {
 }
 
 .content {
-	max-width: 960px;
+	max-width: 700px;
+	text-align: center;
 	
 }
