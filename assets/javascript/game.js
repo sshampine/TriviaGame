@@ -113,10 +113,10 @@ var q10 = {
 };
 */
 // other variables
-var correctAnswer = 0;
-var incorrectAnswer = 0;
-var unanswered = 0;
-var currentQuestion = 0;
+var correctAnswer;
+var incorrectAnswer;
+var unanswered;
+var currentQuestion;
 var userChoice;
 var answered;
 //var clicked = false;
@@ -152,7 +152,10 @@ $('#replayBtn').on('click', function() {
 	//var interval = setInterval(question, 5000);
 
 function startGame() {
-	
+	correctAnswer = 0;
+	incorrectAnswer = 0;
+	unanswered = 0;
+	currentQuestion = 0;
 	nextQuestion();
 }
 
