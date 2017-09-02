@@ -117,6 +117,7 @@ var correctAnswer;
 var incorrectAnswer;
 var unanswered;
 var currentQuestion;
+var questionAnswer;
 var userChoice;
 var answered;
 //var clicked = false;
@@ -165,6 +166,7 @@ function nextQuestion() {
 	$('#correct').empty();
 	$('#wrong').empty();
 	$('#not').empty();
+	$('#question-display').empty();
 	$('#question-area').html(triviaQuestions[currentQuestion].question)
 	for (var i = 0; i < 4; i++) {
  	var answerDiv = $('<div>');
@@ -188,13 +190,15 @@ function nextQuestion() {
 
 function answer() {
  var answerList = triviaQuestions[currentQuestion].answer
+ questionAnswer = triviaQuestions[currentQuestion].answerOptions[triviaQuestions[currentQuestion].answer];
+ console.log('correct answer is: ' + correctAnswer)
  console.log('answer list is ' + answerList);
 	if (userChoice == answerList && answered == true)
 	{
 		correctAnswer++
 		$('#question-area').empty();
 		$('#answer-area').empty();
-		$('#correct').html('you got it ' + correctAnswer);
+		$('#correct').html('you got it!');
 	
 	}
 	else if (userChoice != answerList && answered == true)
@@ -202,7 +206,8 @@ function answer() {
 		incorrectAnswer++;
 		$('#question-area').empty();
 		$('#answer-area').empty();
-		$('#wrong').html('you missed it ' + incorrectAnswer);
+		$('#wrong').html('you missed it');
+		$('#question-display').text('The correct answer was: ' + questionAnswer);
 	
 	}
 
@@ -212,6 +217,7 @@ function answer() {
 		$('#question-area').empty();
 		$('#answer-area').empty();
 		$('#not').html("you forgot to answer");
+		$('#question-display').text('The correct answer was: ' + questionAnswer);
 	}
 
 	//currentQuestion++;
