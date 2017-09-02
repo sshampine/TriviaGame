@@ -1,13 +1,13 @@
 // Star Trek Questions
 
 var triviaQuestions = [{
-	question: 'The theme for Star Trek The Next Generation was take from which Star Trek feature film?',
+	question: 'The theme for Star Trek The Next Generation was taken from which Star Trek feature film?',
 	answerOptions: ['The Motion Picture', 'The Wrath of Kahn', 'The Search for Spock', 'The Voyage Home'],
 	answer: 0
 },
 {	
 	question: 'What is the name of the Vulcan ritual that purges all emotions?',
-	answerOptions: ['Kolinar', 'Ponfar', 'Katra', 'Kalifee'],
+	answerOptions: ['Kolinahr', 'Pon farr', 'Katra', 'Kal-if-fee'],
 	answer: 0 
 },
 {
@@ -17,7 +17,7 @@ var triviaQuestions = [{
 },
 {
 	question: 'In Star Trek The Next Generation, who is Data\'s creator?',
-	answerOptions: ['Kahn Noonian Singh', 'Chris Metzen', 'Noonian Soong', 'Leah Brahms'],
+	answerOptions: ['Kahn Noonien Singh', 'Chris Metzen', 'Noonian Soong', 'Leah Brahms'],
 	answer: 2
 },
 {
@@ -32,7 +32,7 @@ var triviaQuestions = [{
 },
 {
 	question: 'What is the name of the episode where Kirk fought a Gorn?',
-	answerOptions: ['Let That Be Your Last Battlefield', 'Mirror, Mirror', 'Arena', 'The Balance of Terror'],
+	answerOptions: ['Let That Be Your Last Battlefield', 'Mirror, Mirror', 'Arena', 'Balance of Terror'],
 	answer: 2
 },
 {
@@ -51,6 +51,8 @@ var triviaQuestions = [{
 	answer: 3
 }];
 
+var gifArray = ['answerGif0', 'answerGif1', 'answerGif2', 'answerGif3', 'answerGif4', 'answerGif5', 'answerGif6', 
+			'answerGif7', 'answerGif8', 'answerGif9'];
 /*
 var q1 = {
 	question: "The theme for Star Trek The Next Generation was taken from which Star Trek feature movie?",
@@ -120,6 +122,7 @@ var currentQuestion;
 var questionAnswer;
 var userChoice;
 var answered;
+var answerGif;
 //var clicked = false;
 //var index = 0;
 //var questionArray = [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10];
@@ -167,6 +170,7 @@ function nextQuestion() {
 	$('#wrong').empty();
 	$('#not').empty();
 	$('#question-display').empty();
+	$('#gif').empty();
 	$('#question-area').html(triviaQuestions[currentQuestion].question)
 	for (var i = 0; i < 4; i++) {
  	var answerDiv = $('<div>');
@@ -191,6 +195,12 @@ function nextQuestion() {
 function answer() {
  var answerList = triviaQuestions[currentQuestion].answer
  questionAnswer = triviaQuestions[currentQuestion].answerOptions[triviaQuestions[currentQuestion].answer];
+ console.log('current question is: ' + currentQuestion)
+ answerGif = $('<img>')
+ answerGif.attr('src', 'assets/images/' + gifArray[currentQuestion] + '.gif')
+ console.log('gif is: ' + gifArray[currentQuestion + 1])
+ $('#gif').append(answerGif);
+ console.log('gif array: ' + answerGif);
  console.log('correct answer is: ' + correctAnswer)
  console.log('answer list is ' + answerList);
 	if (userChoice == answerList && answered == true)
@@ -271,9 +281,10 @@ function showCount() {
 
 function score() {
 	$('#timer-area').empty()
+	$('#gif').empty();
 	$('#correct').html('you got: ' + correctAnswer + ' right');
 	$('#wrong').html('you got: ' + incorrectAnswer + ' wrong');
-	$('#not').html('you didn\st answer: ' + unanswered);
+	$('#not').html('you didn\'t answer: ' + unanswered);
 	$('#replayBtn').show();
 	$('#replayBtn').html('Play Again?')
 }
