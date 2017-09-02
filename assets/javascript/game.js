@@ -122,14 +122,14 @@ function answer() {
 		correctAnswer++;
 		$('#question-area').empty();
 		$('#answer-area').empty();
-		$('#correct').html('you got it!');
+		$('#correct').html('You got it!');
 	}
 
 	else if (userChoice != answerList && answered == true) {
 		incorrectAnswer++;
 		$('#question-area').empty();
 		$('#answer-area').empty();
-		$('#wrong').html('you missed it');
+		$('#wrong').html('You missed it!');
 		$('#question-display').text('The correct answer was: ' + questionAnswer);
 	}
 
@@ -138,7 +138,7 @@ function answer() {
 		answered = true;
 		$('#question-area').empty();
 		$('#answer-area').empty();
-		$('#not').html("you forgot to answer");
+		$('#not').html("You forgot to answer!");
 		$('#question-display').text('The correct answer was: ' + questionAnswer);
 	}
 
