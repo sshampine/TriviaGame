@@ -40,6 +40,7 @@ h1 {
 
 #gif {
 	margin-top: 15px;
+	overflow: auto;
 }
 
 .content {
@@ -49,5 +50,8 @@ h1 {
 }
 
 @media screen and (max-width: 640px) {
+	.content {
+		max-width: 400px;
+	}
 
 }
