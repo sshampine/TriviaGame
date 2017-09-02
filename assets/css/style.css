@@ -21,7 +21,7 @@ h1 {
 .test {
 	color: white;
 	font-size: 28px;
-	
+	padding: 10px;
 }
 
 .test:hover {
@@ -41,5 +41,5 @@ h1 {
 .content {
 	max-width: 700px;
 	text-align: center;
-	
+	margin-top: 25px;
 }
