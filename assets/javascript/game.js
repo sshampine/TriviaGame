@@ -175,6 +175,7 @@ function showCount() {
 function score() {
 	$('#timer-area').empty();
 	$('#gif').empty();
+	$('#question-display').empty();
 	$('#correct').html('you got: ' + correctAnswer + ' right');
 	$('#wrong').html('you got: ' + incorrectAnswer + ' wrong');
 	$('#not').html('you didn\'t answer: ' + unanswered);
